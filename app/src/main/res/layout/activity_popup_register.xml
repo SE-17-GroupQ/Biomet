@@ -17,7 +17,7 @@
         android:id="@+id/popupClose" />
 
     <Button
-        android:text="Click the Pic."
+        android:text="Capture Your Picture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/captureImage"

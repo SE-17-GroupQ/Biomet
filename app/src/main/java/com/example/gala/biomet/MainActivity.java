@@ -18,6 +18,8 @@ import java.io.ByteArrayOutputStream;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 
+import static com.example.gala.biomet.R.id.captureImage;
+
 public class MainActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -38,10 +40,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button markAttendance = (Button) findViewById(R.id.markAttendance);
-        Button registerButton = (Button) findViewById(R.id.registerButton);
+
+        final Button registerButton = (Button) findViewById(R.id.registerButton);
         imageView = (ImageView) findViewById(R.id.imageView);
 
-        markAttendance.setOnClickListener(new View.OnClickListener() {
+        /*markAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Dialog dialog = new Dialog(MainActivity.this);
@@ -57,16 +60,18 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                /*Button dialogButtonClose = (Button)dialog.findViewById(R.id.opup);
+                *//*Button dialogButtonClose = (Button)dialog.findViewById(R.id.closePopup);
                 dialogButtonClose.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                             dialog.dismiss();
                     }
-                });*/
+                });*//*
                 dialog.show();
             }
-        });
+        });*/
+
+        //Button selfie = new Button.findViewById()
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,11 +81,11 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setTitle("Registeration");
                 //Add text view and image view
 
-                Button dialogButtonCapture = (Button)dialog.findViewById(R.id. captureImage);
+                Button dialogButtonCapture = (Button)dialog.findViewById(captureImage);
                 dialogButtonCapture.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
+                        registerButton.setEnabled(true);
                     }
                 });
 

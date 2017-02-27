@@ -34,7 +34,7 @@
         android:text="Class Photo to Mark Attendance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/markAttendance"
+        android:id="@+id/markAttendanceButton"
         android:onClick="launchCamera"
         android:layout_marginBottom="26dp"
         android:layout_alignParentBottom="true"
