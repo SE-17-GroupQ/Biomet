@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final String Kairos_webapi = "https://api.kairos.com";
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private final OkHttpClient client = new OkHttpClient();
+    //private final OkHttpClient client = new OkHttpClient();
     private final Gson gson = new Gson();
 
     private ImageView imageView;
@@ -151,26 +151,6 @@ public class MainActivity extends AppCompatActivity {
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
-   /* private class ApiStuff extends AsyncTask<String, String, String>
-    {
-        protected String backgroundStuff(String... params)
-        {
-            String base64Photo = params[0];
-            JSONObject jsonObject = new JSONObject();
-            try
-            {
-                jsonObject.putOpt("image",base64Photo);
-
-            }
-            catch (JSONException j){
-                Log.i(TAG, "json : "+j.toString());
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            return null;
-        }
-    }*/
+    
 
 }
