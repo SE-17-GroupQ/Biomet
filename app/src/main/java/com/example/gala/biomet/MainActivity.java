@@ -8,10 +8,13 @@ import android.content.pm.PackageManager;
 import android.provider.MediaStore;
 import android.graphics.Bitmap;
 import android.util.Base64;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import com.google.gson.Gson;
+
 
 import java.io.ByteArrayOutputStream;
 
@@ -73,21 +76,25 @@ public class MainActivity extends AppCompatActivity {
 
         //Button selfie = new Button.findViewById()
 
+
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 final Dialog dialog = new Dialog(MainActivity.this);
+                View popupView = layoutInflater.inflate(R.layout.activity_popup_register, null);
                 dialog.setContentView(R.layout.activity_popup_register);
                 dialog.setTitle("Registeration");
                 //Add text view and image view
 
                 Button dialogButtonCapture = (Button)dialog.findViewById(captureImage);
-                dialogButtonCapture.setOnClickListener(new View.OnClickListener() {
+                dialogButtonCapture.setEnabled(true);
+                /*dialogButtonCapture.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         registerButton.setEnabled(true);
                     }
-                });
+                });*/
 
                 Button dialogButtonClose = (Button)dialog.findViewById(R.id.popupClose);
                 dialogButtonClose.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Launching the camera
     public void launchCamera(View view) {
+        Log.i(TAG, ((Button)view).getText().toString());
         apiService = ((Button) view).getText().toString().toLowerCase();
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         //Take a picture and pass results along to onActivityResults
