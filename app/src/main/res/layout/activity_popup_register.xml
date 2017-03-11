@@ -16,49 +16,6 @@
         android:layout_marginBottom="11dp"
         android:id="@+id/popupClose" />
 
-    <TextView
-        android:text="NC Unity ID : "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginStart="25dp"
-        android:id="@+id/id_text"
-        android:layout_below="@+id/name_textfield"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="Full Name : "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_name"
-        android:layout_alignBaseline="@+id/name_textfield"
-        android:layout_alignBottom="@+id/name_textfield"
-        android:layout_alignLeft="@+id/id_text"
-        android:layout_alignStart="@+id/id_text" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/name_textfield"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/id_text"
-        android:layout_toEndOf="@+id/id_text"
-        android:text="Name" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="UnityID"
-        android:ems="10"
-        android:id="@+id/unity_id_textfield"
-        android:layout_above="@+id/captureImage"
-        android:layout_toRightOf="@+id/id_text"
-        android:layout_toEndOf="@+id/id_text" />
-
     <Button
         android:text="Capture Your Picture"
         android:layout_width="match_parent"
@@ -69,5 +26,23 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="NC Unity ID : "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/id_text"
+        android:layout_marginTop="11dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/unity_id"
+        android:layout_above="@+id/captureImage"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

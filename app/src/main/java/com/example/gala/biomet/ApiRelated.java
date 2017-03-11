@@ -1,7 +1,10 @@
 package com.example.gala.biomet;
 
-import android.app.VoiceInteractor;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -24,6 +27,10 @@ import okhttp3.Response;
 public class ApiRelated extends AsyncTask<String, String, String>{
 
     private final OkHttpClient client = new OkHttpClient();
+
+    static final String TAG = "Yo ApiRelated Activity";
+
+    private AlertDialog alertDialog;
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     static final String KAIROS_DOMAIN = "https://api.kairos.com";
@@ -58,17 +65,17 @@ public class ApiRelated extends AsyncTask<String, String, String>{
         //
         String base64Photo = params[0];
         JSONObject jsonObject = new JSONObject();
-        //Log.i(TAG, "Kairos API call :\nSERVICE : "+apiService+" GALLERY : "+GALLERY_VALUE);
+        Log.i(TAG, "Kairos API call :\nSERVICE : "+apiService+" GALLERY : "+GALLERY_VAL);
         try {
             jsonObject.putOpt(IMAGE, base64Photo);
             jsonObject.putOpt(GALLERY_NAME,GALLERY_VAL);
             if(apiService.equals(ENROLL)){
-               // Log.i(TAG, "SUBJECT : "+subject_id);
+                Log.i(TAG, "SUBJECT : "+subject_id);
                 jsonObject.putOpt(SUBJECT_ID, subject_id);
             }
         }
         catch(JSONException jerror){
-            //Log.i(TAG, "Problem in adding parameters to JSON");
+            Log.i(TAG, "Problem in adding parameters to JSON");
             jerror.printStackTrace();
         }
         RequestBody requestBody = RequestBody.create(JSON,jsonObject.toString());
@@ -80,14 +87,14 @@ public class ApiRelated extends AsyncTask<String, String, String>{
         try{
             response = client.newCall(request).execute();
             if(response != null && response.isSuccessful()) {
-                //Log.i(TAG, "Response successful");
+                Log.i(TAG, "Response successful");
                 String responseJsonString = response.body().string();
                 try{
                     JSONObject responseJson = new JSONObject(responseJsonString);
-                    //Log.i(TAG, "Response JSON : "+responseJsonString);
+                    Log.i(TAG, "Response JSON : "+responseJsonString);
                     if(responseJson.has(ERRORS)) {
                         String apiError = ((JSONObject)responseJson.getJSONArray(ERRORS).get(0)).getString(MESSAGE);
-                        //Log.i(TAG, "Kairos Error : "+kairosError);
+                        Log.i(TAG, "Kairos Error : "+apiError);
                         returnMsg = apiService+" : "+apiError;
                     }
                     else {
@@ -95,19 +102,19 @@ public class ApiRelated extends AsyncTask<String, String, String>{
                                 .getJSONObject(TRANSACTION);
                         String kairosStatus = transaction.getString(STATUS);
                         String subject = transaction.getString(SUBJECT_ID);
-                        //Log.i(TAG, "Kairos Status : "+kairosStatus);
+                        Log.i(TAG, "Kairos Status : "+kairosStatus);
                         returnMsg = apiService+" "+subject+" : "+kairosStatus;
                     }
                 } catch(JSONException j) {
-                    //Log.i(TAG, "Problem in parsing response JSON");
+                    Log.i(TAG, "Problem in parsing response JSON");
                     j.printStackTrace();
                 }
             }
             else {
-                //Log.i(TAG, "Response failed : "+response.code());
+                Log.i(TAG, "Response failed : "+response.code());
             }
         } catch(IOException i) {
-            //Log.i(TAG, "Problem in :\n1. Executing Kairon POST request\nOR\n2.Getting body of response");
+            Log.i(TAG, "Problem in :\n1. Executing Kairon POST request\nOR\n2.Getting body of response");
             returnMsg = CONNECTION_PROBLEM;
             i.printStackTrace();
         }
@@ -120,4 +127,5 @@ public class ApiRelated extends AsyncTask<String, String, String>{
         status.setText(s);
         super.onPostExecute(s);
     }
+
 }
