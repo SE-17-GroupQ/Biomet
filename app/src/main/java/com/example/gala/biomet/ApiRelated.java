@@ -1,6 +1,8 @@
 package com.example.gala.biomet;
 
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +28,8 @@ import okhttp3.Response;
 
 public class ApiRelated extends AsyncTask<String, String, String>{
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
     private final OkHttpClient client = new OkHttpClient();
 
     static final String TAG = "Yo ApiRelated Activity";
@@ -33,7 +37,13 @@ public class ApiRelated extends AsyncTask<String, String, String>{
     private AlertDialog alertDialog;
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    static final String KAIROS_DOMAIN = "https://api.kairos.com";
+
+    private static final String CONTENT = "Content-Type";
+    private static final String CONTENT_TYPE = "application/json";
+    private static final String CONNECTION_PROBLEM = "Connection problem. Please try again.";
+
+    //Kaisros Api Constants
+    static final String API_LINK = "https://api.kairos.com";
     private static final String IMAGE = "image";
     private static final String GALLERY_NAME = "gallery_name";
     private static final String GALLERY_VAL = "se17";
@@ -41,19 +51,16 @@ public class ApiRelated extends AsyncTask<String, String, String>{
     private static final String SUBJECT_ID = "subject_id";
     private static final String APP_ID_VALUE = "01ed2a33";
     private static final String APP_KEY_VALUE = "b6043be30810c2de07daefe36e89cb20";
-
-    private static final String CONTENT = "Content-Type";
-    private static final String CONTENT_TYPE = "application/json";
     private static final String APP_ID = "app_id";
     private static final String APP_KEY = "app_key";
     private static final String ERRORS = "Errors";
     private static final String MESSAGE = "Message";
-    private static final String IMAGES = "images";
     private static final String TRANSACTION = "transaction";
     private static final String STATUS = "status";
-    private static final String CONNECTION_PROBLEM = "Connection problem. Please try again.";
+    private static final String IMAGES_JSON = "images";
+    //Kaisros Api Constants
 
-
+    private static final String EMPTY_UNITY_ID = "Unity Id cannot be blank";
     private String subject_id;
     private String apiService;
     private EditText subjectText;
@@ -79,7 +86,7 @@ public class ApiRelated extends AsyncTask<String, String, String>{
             jerror.printStackTrace();
         }
         RequestBody requestBody = RequestBody.create(JSON,jsonObject.toString());
-        Request request = new Request.Builder().url(KAIROS_DOMAIN+"/"+apiService).
+        Request request = new Request.Builder().url(API_LINK +"/"+apiService).
                 addHeader(APP_ID,APP_ID_VALUE).addHeader(APP_KEY,APP_KEY_VALUE)
                 .addHeader(CONTENT,CONTENT_TYPE).post(requestBody).build();
 
@@ -98,7 +105,7 @@ public class ApiRelated extends AsyncTask<String, String, String>{
                         returnMsg = apiService+" : "+apiError;
                     }
                     else {
-                        JSONObject transaction =((JSONObject)responseJson.getJSONArray(IMAGES).get(0))
+                        JSONObject transaction =((JSONObject)responseJson.getJSONArray(IMAGES_JSON).get(0))
                                 .getJSONObject(TRANSACTION);
                         String kairosStatus = transaction.getString(STATUS);
                         String subject = transaction.getString(SUBJECT_ID);
@@ -126,6 +133,22 @@ public class ApiRelated extends AsyncTask<String, String, String>{
         subjectText.setText("");
         status.setText(s);
         super.onPostExecute(s);
+    }
+
+    public void clickPhoto(View v)
+    {
+        apiService = ((Button)v).getText().toString().toLowerCase();
+        if(apiService.equals(ENROLL))
+        {
+            subject_id = subjectText.getText().toString();
+            if(subject_id.matches(""))
+            {
+                alertDialog.setMessage(EMPTY_UNITY_ID);
+                alertDialog.show();
+                return;
+            }
+            Intent photoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        }
     }
 
 }
