@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 final Dialog dialog = new Dialog(MainActivity.this);
                 Log.w(TAG,"1");
                 //View popupView = layoutInflater.inflate(R.layout.activity_popup_register, null);
+                //The view is been set up by the setContentView
                 dialog.setContentView(R.layout.activity_popup_register);
                 dialog.setTitle("Registration");
                 Log.w(TAG,"2");
@@ -83,7 +84,12 @@ public class MainActivity extends AppCompatActivity {
                     Log.w(TAG,"6");
                     //subject_id = subjectText.getText().toString();
                     subject_id = subjectText.getText().toString();
+
+                    if(subject_id.matches("")) {
+                        Log.i(TAG, "not null, silver");
+                    }
                     Log.w(TAG,"7");
+                    //Log.w(TAG,subject_id);
                     /*if(subject_id.matches(""))
                     {
                         Log.w(TAG,"ealfjjbwefkjwjbs");
@@ -110,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
             markAttendanceButton.setEnabled(false);
             registerButton.setEnabled(false);
         }
+        alertDialog = AlertDialogHelper.buildAlertDialog(MainActivity.this, "Alert", "OK");
     }
 
     //Check if the user has the camera
@@ -120,12 +127,24 @@ public class MainActivity extends AppCompatActivity {
     //Launching the camera
     public void launchCamera(View view) {
         Log.i(TAG, ((Button)view).getText().toString());
+
         Log.i(TAG, subjectText.getText().toString());
+
+        subject_id = subjectText.getText().toString();
+        if(subject_id.matches(""))
+        {
+            Log.w(TAG,"ealfjjbwefkjwjbs");
+            alertDialog.setMessage(EMPTY_UNITY_ID);
+            alertDialog.show();
+            return;
+        }
+        Log.i(TAG,subject_id);
         apiService = ((Button) view).getText().toString().toLowerCase();
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         //Take a picture and pass results along to onActivityResults
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
+
     //If you want to return the image taken
 
     @Override
