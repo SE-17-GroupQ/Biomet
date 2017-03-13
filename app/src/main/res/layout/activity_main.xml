@@ -11,32 +11,31 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.gala.biomet.MainActivity">
 
-    <Button
-        android:text="Register Student"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/registerButton"
-        android:layout_marginTop="15dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:srcCompat="@android:drawable/screen_background_light_transparent"
         android:layout_centerHorizontal="true"
         android:id="@+id/imageView"
-        android:layout_below="@+id/registerButton" />
+        android:layout_below="@+id/registerButton"
+        android:layout_above="@+id/markAttendanceButton" />
 
     <Button
-        android:text="Class Photo to Mark Attendance"
+        android:text="Verify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/markAttendanceButton"
         android:onClick="launchCamera"
-        android:layout_marginBottom="26dp"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Enroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/registerButton"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 </RelativeLayout>
